@@ -13,31 +13,31 @@
 #endif
 
 protocol Textable {
-    var nx_text: String { get }
+    var textKey: String { get }
 }
 
 #if os(iOS)
     extension UITextField: Textable {
-        var nx_text: String {
-            return text ?? ""
+        var textKey: String {
+            return "text"
         }
     }
     
     extension UITextView: Textable {
-        var nx_text: String {
-            return text
+        var textKey: String {
+            return "text"
         }
     }
 #elseif os(OSX)
     extension NSTextField: Textable {
-        var nx_text: String {
-            return stringValue
+        var textKey: String {
+            return "stringValue"
         }
     }
     
     extension NSTextView: Textable {
-        var nx_text: String {
-            return string ?? ""
+        var textKey: String {
+            return "string"
         }
     }
 #endif
