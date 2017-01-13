@@ -27,8 +27,8 @@ fileprivate var observerTypeAssociationKey: UInt8 = 0
         }
         
         // TODO: RENAME TEXTFIELD
-//        func isEnabled(by textField: Textable, configurationHandler: @escaping ConfigurationHandler1) {
-//            observer = NUIObserver1(textableValues: [textField], configurationHandler: configurationHandler) { [unowned self] isEnabled in
+//        func isEnabled<T: NSObject>(by textableValue: T, configurationHandler: @escaping ConfigurationHandler1) where T: Textable {
+//            observer = NUIObserver1(textableValues: [textableValue], configurationHandler: configurationHandler) { [unowned self] isEnabled in
 //                self.isEnabled = isEnabled
 //            }
 //        }
@@ -38,20 +38,10 @@ fileprivate var observerTypeAssociationKey: UInt8 = 0
             observer = NUIObserver2(textableValues: inputs, configurationHandler: configurationHandler, enabledHandler: { [unowned self] isEnabled in
                 self.isEnabled = isEnabled
             }, disposablesHandler: { disposeBags in
-                
-//                textField1?.disposeBag = disposeBags[0]
-//                textField2?.disposeBag = disposeBags[1]
-                
-//                zip(inputs, disposeBags).forEach { tuple in
-//                    tuple.0.disposeBag = tuple.1
-//                }
+                zip(inputs, disposeBags).forEach { tuple in
+                    tuple.0.disposeBag = tuple.1
+                }
             })
-            
-            textField1.disposeBag = observer.disposeBags![0]
-            textField2.disposeBag = observer.disposeBags![1]
-            
-            observer.disposeBags = nil
-            
         }
         
 //        func isEnabled(by textField1: Textable, _ textField2: Textable, _ textField3: Textable, configurationHandler: @escaping ConfigurationHandler3) {
