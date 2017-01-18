@@ -3,74 +3,113 @@
 //  NxEnabled
 //
 //  Created by Nikita Ermolenko on 12/01/2017.
-//  Copyright © 2017 Rosberry. All rights reserved.
+//  Copyright © 2017 Nikita. All rights reserved.
 //
 
-#if os(iOS)
-    import UIKit
-#elseif os(OSX)
-    import AppKit
-#endif
+import UIKit.UIButton
 
-fileprivate var observerTypeAssociationKey: UInt8 = 0
+private var observerTypeAssociationKey: UInt8 = 0
 
-#if os(iOS)
-    extension UIButton {
-        
-        var observer: NUIObserver {
-            get {
-                return objc_getAssociatedObject(self, &observerTypeAssociationKey) as! NUIObserver
-            }
-            set {
-                objc_setAssociatedObject(self, &observerTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-        }
-        
-        // TODO: RENAME TEXTFIELD
-//        func isEnabled<T: NSObject>(by textableValue: T, configurationHandler: @escaping ConfigurationHandler1) where T: Textable {
-//            observer = NUIObserver1(textableValues: [textableValue], configurationHandler: configurationHandler) { [unowned self] isEnabled in
-//                self.isEnabled = isEnabled
-//            }
-//        }
-        
-        func isEnabled<T1: NSObject, T2: NSObject>(by textField1: T1, _ textField2: T2, configurationHandler: @escaping ConfigurationHandler2) where T1: Textable, T1: Textable {
-            let inputs = [textField1, textField2]
-            observer = NUIObserver2(textableValues: inputs, configurationHandler: configurationHandler, enabledHandler: { [unowned self] isEnabled in
-                self.isEnabled = isEnabled
-            }, disposablesHandler: { disposeBags in
-                zip(inputs, disposeBags).forEach { tuple in
-                    tuple.0.disposeBag = tuple.1
-                }
-            })
-        }
-        
-//        func isEnabled(by textField1: Textable, _ textField2: Textable, _ textField3: Textable, configurationHandler: @escaping ConfigurationHandler3) {
-//            observer = NUIObserver3(textableValues: [textField1, textField2, textField3], configurationHandler: configurationHandler) { [unowned self] isEnabled in
-//                self.isEnabled = isEnabled
-//            }
-//        }
-//        
-//        func isEnabled(by textField1: Textable, _ textField2: Textable, _ textField3: Textable, _ textField4: Textable, configurationHandler: @escaping ConfigurationHandler4) {
-//            observer = NUIObserver4(textableValues: [textField1, textField2, textField3, textField4], configurationHandler: configurationHandler) { [unowned self] isEnabled in
-//                self.isEnabled = isEnabled
-//            }
-//        }
-//        
-//        func isEnabled(by textField1: Textable, _ textField2: Textable, _ textField3: Textable, _ textField4: Textable, _ textField5: Textable, configurationHandler: @escaping ConfigurationHandler5)
-//        {
-//            observer = NUIObserver5(textableValues: [textField1, textField2, textField3, textField4, textField5], configurationHandler: configurationHandler) { [unowned self] isEnabled in
-//                self.isEnabled = isEnabled
-//            }
-//        }
-//        
-//        func isEnabled(by textField1: Textable, _ textField2: Textable, _ textField3: Textable, _ textField4: Textable, _ textField5: Textable, _ textField6: Textable, configurationHandler: @escaping ConfigurationHandler6) {
-//            observer = NUIObserver6(textableValues: [textField1, textField2, textField3, textField4, textField5, textField6], configurationHandler: configurationHandler) { [unowned self] isEnabled in
-//                self.isEnabled = isEnabled
-//            }
-//        }
+extension UIButton {
+    
+    fileprivate var observer: NUIObserver? {
+        get { return objc_getAssociatedObject(self, &observerTypeAssociationKey) as! NUIObserver? }
+        set { objc_setAssociatedObject(self, &observerTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
-#elseif os(OSX)
     
-    //TODO: NSButton
-    
-#endif
+    public func clearBag() {
+        observer = nil
+    }
+}
+
+// MARK: - NUIObserber1
+
+extension UIButton {
+    public func isEnabled<T: NSObject>(by textableValue: T,
+                                        configurationHandler: @escaping ConfigurationHandler1) where T: Textable {
+
+        observer = NUIObserver1(textableValues: [textableValue], configurationHandler: configurationHandler) { [unowned self] isEnabled in
+            self.isEnabled = isEnabled
+        }
+    }
+}
+
+// MARK: - NUIObserber2
+
+extension UIButton {
+    public func isEnabled<T: NSObject>(by textableValue1: T,
+                                        _ textableValue2: T,
+                                        configurationHandler: @escaping ConfigurationHandler2) where T: Textable {
+        
+        let inputs = [textableValue1, textableValue2]
+        observer = NUIObserver2(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
+            self.isEnabled = isEnabled
+        }
+    }
+}
+
+// MARK: - NUIObserber3
+
+extension UIButton {
+    public func isEnabled<T: NSObject>(by textableValue1: T,
+                                        _ textableValue2: T,
+                                        _ textableValue3: T,
+                                        configurationHandler: @escaping ConfigurationHandler3) where T: Textable {
+        
+        let inputs = [textableValue1, textableValue2, textableValue3]
+        observer = NUIObserver3(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
+            self.isEnabled = isEnabled
+        }
+    }
+}
+
+// MARK: - NUIObserber4
+
+extension UIButton {
+    public func isEnabled<T: NSObject>(by textableValue1: T,
+                                        _ textableValue2: T,
+                                        _ textableValue3: T,
+                                        _ textableValue4: T,
+                                        configurationHandler: @escaping ConfigurationHandler4) where T: Textable {
+        
+        let inputs = [textableValue1, textableValue2, textableValue3, textableValue4]
+        observer = NUIObserver4(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
+            self.isEnabled = isEnabled
+        }
+    }
+}
+
+// MARK: - NUIObserber5
+
+extension UIButton {
+    public func isEnabled<T: NSObject>(by textableValue1: T,
+                                        _ textableValue2: T,
+                                        _ textableValue3: T,
+                                        _ textableValue4: T,
+                                        _ textableValue5: T,
+                                        configurationHandler: @escaping ConfigurationHandler5) where T: Textable {
+        
+        let inputs = [textableValue1, textableValue2, textableValue3, textableValue4, textableValue5]
+        observer = NUIObserver5(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
+            self.isEnabled = isEnabled
+        }
+    }
+}
+
+// MARK: - NUIObserber6
+
+extension UIButton {
+    public func isEnabled<T: NSObject>(by textableValue1: T,
+                                        _ textableValue2: T,
+                                        _ textableValue3: T,
+                                        _ textableValue4: T,
+                                        _ textableValue5: T,
+                                        _ textableValue6: T,
+                                        configurationHandler: @escaping ConfigurationHandler6) where T: Textable {
+        
+        let inputs = [textableValue1, textableValue2, textableValue3, textableValue4, textableValue5, textableValue6]
+        observer = NUIObserver6(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
+            self.isEnabled = isEnabled
+        }
+    }
+}

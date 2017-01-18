@@ -3,25 +3,19 @@
 //  NxEnabled
 //
 //  Created by Nikita Ermolenko on 12/01/2017.
-//  Copyright © 2017 Rosberry. All rights reserved.
+//  Copyright © 2017 Nikita. All rights reserved.
 //
 
-import Foundation
-import ObjectiveC
-
-#if os(iOS)
-    import UIKit.UIControl
-#endif
+import UIKit.UIControl
 
 typealias EnabledHandler = (Bool) -> Void
-typealias DisposablesHandler = ([DisposeBag]) -> Void
 
-typealias ConfigurationHandler1 = (String) -> Bool
-typealias ConfigurationHandler2 = (String,String) -> Bool
-typealias ConfigurationHandler3 = (String,String,String) -> Bool
-typealias ConfigurationHandler4 = (String,String,String,String) -> Bool
-typealias ConfigurationHandler5 = (String,String,String,String,String) -> Bool
-typealias ConfigurationHandler6 = (String,String,String,String,String,String) -> Bool
+public typealias ConfigurationHandler1 = (String) -> Bool
+public typealias ConfigurationHandler2 = (String,String) -> Bool
+public typealias ConfigurationHandler3 = (String,String,String) -> Bool
+public typealias ConfigurationHandler4 = (String,String,String,String) -> Bool
+public typealias ConfigurationHandler5 = (String,String,String,String,String) -> Bool
+public typealias ConfigurationHandler6 = (String,String,String,String,String,String) -> Bool
 
 // MARK: - NUIObserver
 
@@ -32,63 +26,63 @@ class NUIObserver: NSObject {
     
     deinit {
         textableValues.allObjects.forEach { value in
-            let tuple = textableValue(by: value)
+            let tuple = textableValueTuple(by: value)
             tuple.value.removeObserver(self, forKeyPath: tuple.key)
         }
     }
     
-    init(textableValues: [NSObject], enabledHandler: @escaping EnabledHandler, disposablesHandler: DisposablesHandler) {
+    init(textableValues: [NSObject], enabledHandler: @escaping EnabledHandler) {
         self.enabledHandler = enabledHandler
         self.textableValues = NSPointerArray(options: .weakMemory)
         
         super.init()
         
-        let textableValuesTuples = textableValues.map { textableValue(by: $0) }
+        let textableValuesTuples = textableValues.map { textableValueTuple(by: $0) }
         textableValuesTuples.forEach { tuple in
             self.textableValues.addPointer(Unmanaged.passUnretained(tuple.value).toOpaque())
         }
-        
-//        var disposeBags = [DisposeBag]()
-        
+
         textableValuesTuples.forEach { tuple in
             let key = tuple.key
             let textableValue = tuple.value
             
             textableValue.addObserver(self, forKeyPath: key, options: [.new, .initial], context: nil)
-            textableValue.disposeBag = DisposeBag { [weak self, weak textableValue] in
-                if let weakSelf = self { 
-                    textableValue?.removeObserver(weakSelf, forKeyPath: key)
-                }
-            }
-            
-//            disposeBags.append(DisposeBag { [weak self, unowned textableValue] in
-//                if let weakSelf = self {
-//                    textableValue.removeObserver(weakSelf, forKeyPath: key)
-//                }
-//            })
-            
+
             switch tuple.value {
             case let value as UIControl:
-                value.addTarget(self, action:#selector(valueChanged), for: .editingChanged)
+                value.addTarget(self, action:#selector(textableValueChanged), for: .editingChanged)
                 break
             default: break
             }
         }
-
-//        disposablesHandler(disposeBags)
     }
     
-    @objc fileprivate func valueChanged() {
+    // MARK: Text changing events
+    
+    @objc fileprivate func textableValueChanged() {
+        configureEnabling()
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?,
+                               of object: Any?,
+                               change: [NSKeyValueChangeKey : Any]?,
+                               context: UnsafeMutableRawPointer?) {
+        configureEnabling()
+    }
+    
+    // MARK: Helpers
+    
+    fileprivate func configureEnabling() {
         preconditionFailure("This method must be overridden")
     }
     
     fileprivate func text(at index: Int) -> String {
-        let tuple = textableValue(by: textableValues.allObjects[index])
+        let tuple = textableValueTuple(by: textableValues.allObjects[index])
         let value = tuple.value.value(forKey: tuple.key) as! String?
         return value ?? ""
     }
     
-    private func textableValue(by value: Any) -> (value:NSObject, key:String) {
+    private func textableValueTuple(by value: Any) -> (value:NSObject, key:String) {
         let textableValue = value as! NSObject
         let key = (textableValue as! Textable).textKey
         return (textableValue, key)
@@ -104,25 +98,13 @@ final class NUIObserver1: NUIObserver {
     
     init(textableValues: [NSObject],
          configurationHandler: @escaping ConfigurationHandler,
-         enabledHandler: @escaping EnabledHandler,
-         disposablesHandler: @escaping DisposablesHandler) {
+         enabledHandler: @escaping EnabledHandler) {
         
         self.configurationHandler = configurationHandler
-        super.init(textableValues: textableValues, enabledHandler: enabledHandler, disposablesHandler: disposablesHandler)
+        super.init(textableValues: textableValues, enabledHandler: enabledHandler)
     }
-    
-    override func observeValue(forKeyPath keyPath: String?,
-                               of object: Any?,
-                               change: [NSKeyValueChangeKey : Any]?,
-                               context: UnsafeMutableRawPointer?) {
-        configureEnabling()
-    }
-    
-    fileprivate override func valueChanged() {
-        configureEnabling()
-    }
-    
-    private func configureEnabling() {
+
+    fileprivate override func configureEnabling() {
         let text = self.text(at: 0)
         enabledHandler(configurationHandler(text))
     }
@@ -137,22 +119,13 @@ final class NUIObserver2: NUIObserver {
     
     init(textableValues: [NSObject],
          configurationHandler: @escaping ConfigurationHandler,
-         enabledHandler: @escaping EnabledHandler,
-         disposablesHandler: @escaping DisposablesHandler) {
+         enabledHandler: @escaping EnabledHandler) {
         
         self.configurationHandler = configurationHandler
-        super.init(textableValues: textableValues, enabledHandler: enabledHandler, disposablesHandler: disposablesHandler)
+        super.init(textableValues: textableValues, enabledHandler: enabledHandler)
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        configureEnabling()
-    }
-    
-    fileprivate override func valueChanged() {
-        configureEnabling()
-    }
-    
-    private func configureEnabling() {
+    fileprivate override func configureEnabling() {
         let text0 = self.text(at: 0)
         let text1 = self.text(at: 1)
         enabledHandler(configurationHandler(text0, text1))
@@ -168,22 +141,13 @@ final class NUIObserver3: NUIObserver {
     
     init(textableValues: [NSObject],
          configurationHandler: @escaping ConfigurationHandler,
-         enabledHandler: @escaping EnabledHandler,
-         disposablesHandler: @escaping DisposablesHandler) {
+         enabledHandler: @escaping EnabledHandler) {
         
         self.configurationHandler = configurationHandler
-        super.init(textableValues: textableValues, enabledHandler: enabledHandler, disposablesHandler: disposablesHandler)
+        super.init(textableValues: textableValues, enabledHandler: enabledHandler)
     }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        configureEnabling()
-    }
-    
-    fileprivate override func valueChanged() {
-        configureEnabling()
-    }
-    
-    private func configureEnabling() {
+
+    fileprivate override func configureEnabling() {
         let text0 = self.text(at: 0)
         let text1 = self.text(at: 1)
         let text2 = self.text(at: 2)
@@ -200,22 +164,13 @@ final class NUIObserver4: NUIObserver {
     
     init(textableValues: [NSObject],
          configurationHandler: @escaping ConfigurationHandler,
-         enabledHandler: @escaping EnabledHandler,
-         disposablesHandler: @escaping DisposablesHandler) {
+         enabledHandler: @escaping EnabledHandler) {
         
         self.configurationHandler = configurationHandler
-        super.init(textableValues: textableValues, enabledHandler: enabledHandler, disposablesHandler: disposablesHandler)
+        super.init(textableValues: textableValues, enabledHandler: enabledHandler)
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        configureEnabling()
-    }
-    
-    fileprivate override func valueChanged() {
-        configureEnabling()
-    }
-    
-    private func configureEnabling() {
+    fileprivate override func configureEnabling() {
         let text0 = self.text(at: 0)
         let text1 = self.text(at: 1)
         let text2 = self.text(at: 2)
@@ -233,22 +188,13 @@ final class NUIObserver5: NUIObserver {
     
     init(textableValues: [NSObject],
          configurationHandler: @escaping ConfigurationHandler,
-         enabledHandler: @escaping EnabledHandler,
-         disposablesHandler: @escaping DisposablesHandler) {
+         enabledHandler: @escaping EnabledHandler) {
         
         self.configurationHandler = configurationHandler
-        super.init(textableValues: textableValues, enabledHandler: enabledHandler, disposablesHandler: disposablesHandler)
+        super.init(textableValues: textableValues, enabledHandler: enabledHandler)
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        configureEnabling()
-    }
-    
-    fileprivate override func valueChanged() {
-        configureEnabling()
-    }
-    
-    private func configureEnabling() {
+    fileprivate override func configureEnabling() {
         let text0 = self.text(at: 0)
         let text1 = self.text(at: 1)
         let text2 = self.text(at: 2)
@@ -267,22 +213,13 @@ final class NUIObserver6: NUIObserver {
     
     init(textableValues: [NSObject],
          configurationHandler: @escaping ConfigurationHandler,
-         enabledHandler: @escaping EnabledHandler,
-         disposablesHandler: @escaping DisposablesHandler) {
+         enabledHandler: @escaping EnabledHandler) {
         
         self.configurationHandler = configurationHandler
-        super.init(textableValues: textableValues, enabledHandler: enabledHandler, disposablesHandler: disposablesHandler)
+        super.init(textableValues: textableValues, enabledHandler: enabledHandler)
     }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        configureEnabling()
-    }
-    
-    fileprivate override func valueChanged() {
-        configureEnabling()
-    }
-    
-    private func configureEnabling() {
+
+    fileprivate override func configureEnabling() {
         let text0 = self.text(at: 0)
         let text1 = self.text(at: 1)
         let text2 = self.text(at: 2)

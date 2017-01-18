@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84AC9C3D1E27E5C400579202 /* NSObject+Dispose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC9C3C1E27E5C400579202 /* NSObject+Dispose.swift */; };
 		84B0301D1E2729DD005E2CEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0301C1E2729DD005E2CEE /* AppDelegate.swift */; };
 		84B0301F1E2729DD005E2CEE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0301E1E2729DD005E2CEE /* ViewController.swift */; };
 		84B030221E2729DD005E2CEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B030201E2729DD005E2CEE /* Main.storyboard */; };
@@ -19,7 +18,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		84AC9C3C1E27E5C400579202 /* NSObject+Dispose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Dispose.swift"; sourceTree = "<group>"; };
 		84B030191E2729DD005E2CEE /* NxEnabled.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NxEnabled.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B0301C1E2729DD005E2CEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84B0301E1E2729DD005E2CEE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,7 +77,6 @@
 				84B030361E2732B3005E2CEE /* Button+Observer.swift */,
 				84B030371E2732B3005E2CEE /* Observers.swift */,
 				84B030381E2732B3005E2CEE /* TextInput+Textable.swift */,
-				84AC9C3C1E27E5C400579202 /* NSObject+Dispose.swift */,
 			);
 			path = NxEnabled;
 			sourceTree = "<group>";
@@ -158,7 +155,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				84B030391E2732B3005E2CEE /* Button+Observer.swift in Sources */,
-				84AC9C3D1E27E5C400579202 /* NSObject+Dispose.swift in Sources */,
 				84B0303A1E2732B3005E2CEE /* Observers.swift in Sources */,
 				84B0303B1E2732B3005E2CEE /* TextInput+Textable.swift in Sources */,
 				84B0301F1E2729DD005E2CEE /* ViewController.swift in Sources */,

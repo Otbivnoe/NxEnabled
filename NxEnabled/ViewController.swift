@@ -17,31 +17,38 @@ class TextField : UITextField {
 
 class ViewController: UIViewController {
 
-    var textField1: TextField? = TextField()
-    var textField2:TextField? = TextField()
+    var textField1 = TextField(frame: .zero)
+    var textField2 = TextField(frame: .zero)
 
     @IBOutlet weak var button: UIButton!
+    
+    deinit {
+        button.clearBag()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        view.addSubview(textField1)
-//        view.addSubview(textField2)
+        textField1.backgroundColor = .red
+        textField2.backgroundColor = .red
         
-        button.isEnabled(by: textField1!, textField2!) { value1, value2 in
-            return value1.characters.count > 5
-        }
+        view.addSubview(textField1)
+        view.addSubview(textField2)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
-            self.textField1 = nil
+//        button.isEnabled(by: textField1) { value1 in
+//            return value1.characters.count > 5
+//        }
+
+        button.isEnabled(by: textField1, textField2) { v1, v2 -> Bool in
+            return true
         }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        textField1!.frame = CGRect(x: 50, y: 200, width: 100, height: 50)
-        textField2!.frame = CGRect(x: 50, y: 300, width: 100, height: 50)
+        textField1.frame = CGRect(x: 50, y: 200, width: 100, height: 50)
+        textField2.frame = CGRect(x: 50, y: 300, width: 100, height: 50)
     }
 
 }
