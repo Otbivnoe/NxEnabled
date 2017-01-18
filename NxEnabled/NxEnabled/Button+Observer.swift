@@ -12,10 +12,17 @@ private var observerTypeAssociationKey: UInt8 = 0
 
 extension UIButton {
     
+    /// Special object which observes text for all textable values
+    
     fileprivate var observer: NUIObserver? {
         get { return objc_getAssociatedObject(self, &observerTypeAssociationKey) as! NUIObserver? }
         set { objc_setAssociatedObject(self, &observerTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
+    
+    /// Clears all observers from textable values, wich have been configured by `isEnabled` method.
+    ///
+    /// - note: Don't forget to call this method when you need to remove observers from `textableValue`s. Usually it's a `deinit` method.
+    ///
     
     public func clearBag() {
         observer = nil
@@ -25,6 +32,16 @@ extension UIButton {
 // MARK: - NUIObserber1
 
 extension UIButton {
+    
+    /// Setup `isEnabled` property binding with one textable value.
+    ///
+    /// - parameter textableValue:          Textable value for binding.
+    /// - parameter configurationHandler:   Configuration handler within which you should configure `isEnabled` state by current textable value and return it.
+    ///
+    /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
+    ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
+    ///
+    
     public func isEnabled<T: NSObject>(by textableValue: T,
                                         configurationHandler: @escaping ConfigurationHandler1) where T: Textable {
 
@@ -37,6 +54,17 @@ extension UIButton {
 // MARK: - NUIObserber2
 
 extension UIButton {
+    
+    /// Setup `isEnabled` property binding with two textable values.
+    ///
+    /// - parameter textableValue1:         First textable value for binding.
+    /// - parameter textableValue2:         Second textable value for binding.
+    /// - parameter configurationHandler:   Configuration handler within which you should configure `isEnabled` state by current textable values and return it.
+    ///
+    /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
+    ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
+    ///
+    
     public func isEnabled<T: NSObject>(by textableValue1: T,
                                         _ textableValue2: T,
                                         configurationHandler: @escaping ConfigurationHandler2) where T: Textable {
@@ -51,6 +79,18 @@ extension UIButton {
 // MARK: - NUIObserber3
 
 extension UIButton {
+    
+    /// Setup `isEnabled` property binding with three textable values.
+    ///
+    /// - parameter textableValue1:         First textable value for binding.
+    /// - parameter textableValue2:         Second textable value for binding.
+    /// - parameter textableValue3:         Third textable value for binding.
+    /// - parameter configurationHandler:   Configuration handler within which you should configure `isEnabled` state by current textable values and return it.
+    ///
+    /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
+    ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
+    ///
+    
     public func isEnabled<T: NSObject>(by textableValue1: T,
                                         _ textableValue2: T,
                                         _ textableValue3: T,
@@ -66,6 +106,19 @@ extension UIButton {
 // MARK: - NUIObserber4
 
 extension UIButton {
+    
+    /// Setup `isEnabled` property binding with four textable values.
+    ///
+    /// - parameter textableValue1:         First textable value for binding.
+    /// - parameter textableValue2:         Second textable value for binding.
+    /// - parameter textableValue3:         Third textable value for binding.
+    /// - parameter textableValue4:         Fourth textable value for binding.
+    /// - parameter configurationHandler:   Configuration handler within which you should configure `isEnabled` state by current textable values and return it.
+    ///
+    /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
+    ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
+    ///
+    
     public func isEnabled<T: NSObject>(by textableValue1: T,
                                         _ textableValue2: T,
                                         _ textableValue3: T,
@@ -82,6 +135,20 @@ extension UIButton {
 // MARK: - NUIObserber5
 
 extension UIButton {
+    
+    /// Setup `isEnabled` property binding with four textable values.
+    ///
+    /// - parameter textableValue1:         First textable value for binding.
+    /// - parameter textableValue2:         Second textable value for binding.
+    /// - parameter textableValue3:         Third textable value for binding.
+    /// - parameter textableValue4:         Fourth textable value for binding.
+    /// - parameter textableValue5:         Fifth textable value for binding.
+    /// - parameter configurationHandler:   Configuration handler within which you should configure `isEnabled` state by current textable values and return it.
+    ///
+    /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example. 
+    ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
+    ///
+    
     public func isEnabled<T: NSObject>(by textableValue1: T,
                                         _ textableValue2: T,
                                         _ textableValue3: T,
@@ -99,6 +166,21 @@ extension UIButton {
 // MARK: - NUIObserber6
 
 extension UIButton {
+    
+    /// Setup `isEnabled` property binding with four textable values.
+    ///
+    /// - parameter textableValue1:         First textable value for binding.
+    /// - parameter textableValue2:         Second textable value for binding.
+    /// - parameter textableValue3:         Third textable value for binding.
+    /// - parameter textableValue4:         Fourth textable value for binding.
+    /// - parameter textableValue5:         Fifth textable value for binding.
+    /// - parameter textableValue5:         Sixth textable value for binding.
+    /// - parameter configurationHandler:   Configuration handler within which you should configure `isEnabled` state by current textable values and return it.
+    ///
+    /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
+    ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
+    ///
+    
     public func isEnabled<T: NSObject>(by textableValue1: T,
                                         _ textableValue2: T,
                                         _ textableValue3: T,
