@@ -9,6 +9,7 @@
 import UIKit.UITextField
 import UIKit.UITextView
 
+/// Protocol which allow you binding `isEnabled` property of the button with object conforming it.
 public protocol Textable {
     var textKey: String { get }
 }

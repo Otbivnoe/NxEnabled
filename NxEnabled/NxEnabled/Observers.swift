@@ -22,12 +22,11 @@ public typealias ConfigurationHandler6 = (String,String,String,String,String,Str
 class NUIObserver: NSObject {
     
     fileprivate var enabledHandler: EnabledHandler
-    fileprivate var textableValues: NSPointerArray
+    fileprivate var textableValues: NSPointerArray /// Weak array of textable values.
     
     deinit {
-        textableValues.allObjects.forEach { value in
-            let tuple = textableValueTuple(by: value)
-            tuple.value.removeObserver(self, forKeyPath: tuple.key)
+        textableValues.allObjects.map{ textableValueTuple(by: $0) }.forEach { (value, key) in
+            value.removeObserver(self, forKeyPath: key)
         }
     }
     
@@ -37,19 +36,16 @@ class NUIObserver: NSObject {
         
         super.init()
         
-        let textableValuesTuples = textableValues.map { textableValueTuple(by: $0) }
-        textableValuesTuples.forEach { tuple in
-            self.textableValues.addPointer(Unmanaged.passUnretained(tuple.value).toOpaque())
+        let textableValueTuples = textableValues.map { textableValueTuple(by: $0) }
+        textableValueTuples.forEach { (value, _) in
+            self.textableValues.addPointer(Unmanaged.passUnretained(value).toOpaque())
         }
 
-        textableValuesTuples.forEach { tuple in
-            let key = tuple.key
-            let textableValue = tuple.value
-            
+        textableValueTuples.forEach { (textableValue, key) in
             textableValue.addObserver(self, forKeyPath: key, options: [.new, .initial], context: nil)
 
-            switch tuple.value {
-            case let value as UIControl:
+            switch textableValue {
+            case let value as UIControl: /// Special for some UI elements such as UITextView or UITextField.
                 value.addTarget(self, action:#selector(textableValueChanged), for: .editingChanged)
                 break
             default: break
@@ -59,6 +55,7 @@ class NUIObserver: NSObject {
     
     // MARK: Text changing events
     
+    /// This method is called when the `editingChanged` event of `UIControl` is triggered.
     @objc fileprivate func textableValueChanged() {
         configureEnabling()
     }
