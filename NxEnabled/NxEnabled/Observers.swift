@@ -11,11 +11,11 @@ import UIKit.UIControl
 typealias EnabledHandler = (Bool) -> Void
 
 public typealias ConfigurationHandler1 = (String) -> Bool
-public typealias ConfigurationHandler2 = (String,String) -> Bool
-public typealias ConfigurationHandler3 = (String,String,String) -> Bool
-public typealias ConfigurationHandler4 = (String,String,String,String) -> Bool
-public typealias ConfigurationHandler5 = (String,String,String,String,String) -> Bool
-public typealias ConfigurationHandler6 = (String,String,String,String,String,String) -> Bool
+public typealias ConfigurationHandler2 = (String, String) -> Bool
+public typealias ConfigurationHandler3 = (String, String, String) -> Bool
+public typealias ConfigurationHandler4 = (String, String, String, String) -> Bool
+public typealias ConfigurationHandler5 = (String, String, String, String, String) -> Bool
+public typealias ConfigurationHandler6 = (String, String, String, String, String, String) -> Bool
 
 // MARK: - NUIObserver
 
@@ -23,12 +23,14 @@ class NUIObserver: NSObject {
     
     fileprivate var enabledHandler: EnabledHandler
     fileprivate var textableValues: NSPointerArray /// Weak array of textable values.
-    
+
     deinit {
-        textableValues.allObjects.map{ textableValueTuple(by: $0) }.forEach { (value, key) in
+        textableValues.allObjects.map { textableValueTuple(by: $0) }.forEach { (value, key) in
             value.removeObserver(self, forKeyPath: key)
         }
     }
+    
+    //TODO: Refactore later, when apple fix it https://bugs.swift.org/browse/SR-3849
     
     init(textableValues: [NSObject], enabledHandler: @escaping EnabledHandler) {
         self.enabledHandler = enabledHandler
@@ -36,18 +38,20 @@ class NUIObserver: NSObject {
         
         super.init()
         
-        let textableValueTuples = textableValues.map { textableValueTuple(by: $0) }
-        textableValueTuples.forEach { (value, _) in
+        textableValues.forEach { value in
             self.textableValues.addPointer(Unmanaged.passUnretained(value).toOpaque())
         }
 
-        textableValueTuples.forEach { (textableValue, key) in
-            textableValue.addObserver(self, forKeyPath: key, options: [.new, .initial], context: nil)
+        let textableValueTuples = textableValues.map { textableValueTuple(by: $0) }
+        textableValueTuples.forEach { (value, key) in
+            value.addObserver(self, forKeyPath: key, options: [.new, .initial], context: nil)
 
-            switch textableValue {
-            case let value as UIControl: /// Special for some UI elements such as UITextView or UITextField.
-                value.addTarget(self, action:#selector(textableValueChanged), for: .editingChanged)
-                break
+            switch value {
+            case let value as UIControl:  value.addTarget(self, action:#selector(textableValueChanged), for: .editingChanged)
+            case let value as UITextView: NotificationCenter.default.addObserver(self,
+                                                                                 selector: #selector(textVewChanged),
+                                                                                 name: .UITextViewTextDidChange,
+                                                                                 object: value)
             default: break
             }
         }
@@ -55,8 +59,13 @@ class NUIObserver: NSObject {
     
     // MARK: Text changing events
     
+    /// This method is called when the `UITextViewTextDidChange` notification of `UITextView` is triggered.
+    @objc private func textVewChanged() {
+        configureEnabling()
+    }
+    
     /// This method is called when the `editingChanged` event of `UIControl` is triggered.
-    @objc fileprivate func textableValueChanged() {
+    @objc private func textableValueChanged() {
         configureEnabling()
     }
     

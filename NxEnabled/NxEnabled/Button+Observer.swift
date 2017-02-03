@@ -40,13 +40,13 @@ extension UIButton {
     ///
     /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
     ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`. 
-    ///         Dont forget about `dynamic` for your property.
+    ///         Don't forget about `dynamic` for your property.
     ///
     
     public func isEnabled<T: NSObject>(by textableValue: T,
                                         configurationHandler: @escaping ConfigurationHandler1) where T: Textable {
-
-        observer = NUIObserver1(textableValues: [textableValue], configurationHandler: configurationHandler) { [unowned self] isEnabled in
+        let inputs = [textableValue]
+        observer = NUIObserver1(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
             self.isEnabled = isEnabled
         }
     }
@@ -64,18 +64,18 @@ extension UIButton {
     ///
     /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
     ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
-    ///         Dont forget about `dynamic` for your property.
+    ///         Don't forget about `dynamic` for your property.
     ///
     
     public func isEnabled<T1: NSObject, T2: NSObject>(by textableValue1: T1,
                                                         _ textableValue2: T2,
                                                         configurationHandler: @escaping ConfigurationHandler2)
         where T1: Textable, T2: Textable {
-        
-        let inputs = [textableValue1, textableValue2]
-        observer = NUIObserver2(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
-            self.isEnabled = isEnabled
-        }
+            
+            let inputs = [textableValue1, textableValue2]
+            observer = NUIObserver2(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
+                self.isEnabled = isEnabled
+            }
     }
 }
 
@@ -92,7 +92,7 @@ extension UIButton {
     ///
     /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
     ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
-    ///         Dont forget about `dynamic` for your property.
+    ///         Don't forget about `dynamic` for your property.
     ///
     
     public func isEnabled<T1: NSObject, T2: NSObject, T3: NSObject>(by textableValue1: T1,
@@ -100,11 +100,11 @@ extension UIButton {
                                                                     _ textableValue3: T3,
                                                                     configurationHandler: @escaping ConfigurationHandler3)
         where T1: Textable, T2: Textable, T3: Textable {
-        
-        let inputs = [textableValue1, textableValue2, textableValue3]
-        observer = NUIObserver3(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
-            self.isEnabled = isEnabled
-        }
+            
+            let inputs = [textableValue1, textableValue2, textableValue3]
+            observer = NUIObserver3(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
+                self.isEnabled = isEnabled
+            }
     }
 }
 
@@ -122,7 +122,7 @@ extension UIButton {
     ///
     /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
     ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
-    ///         Dont forget about `dynamic` for your property.
+    ///         Don't forget about `dynamic` for your property.
     ///
     
     public func isEnabled<T1: NSObject, T2: NSObject, T3: NSObject, T4: NSObject>(by textableValue1: T1,
@@ -132,10 +132,10 @@ extension UIButton {
                                                                                     configurationHandler: @escaping ConfigurationHandler4)
         where T1: Textable, T2: Textable, T3: Textable, T4: Textable {
         
-        let inputs = [textableValue1, textableValue2, textableValue3, textableValue4]
-        observer = NUIObserver4(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
-            self.isEnabled = isEnabled
-        }
+            let inputs = [textableValue1, textableValue2, textableValue3, textableValue4]
+            observer = NUIObserver4(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
+                self.isEnabled = isEnabled
+            }
     }
 }
 
@@ -154,7 +154,7 @@ extension UIButton {
     ///
     /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
     ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
-    ///         Dont forget about `dynamic` for your property.
+    ///         Don't forget about `dynamic` for your property.
     ///
     
     public func isEnabled<T1: NSObject, T2: NSObject, T3: NSObject, T4: NSObject, T5: NSObject>(by textableValue1: T1,
@@ -165,10 +165,10 @@ extension UIButton {
                                                                                                 configurationHandler: @escaping ConfigurationHandler5)
         where T1: Textable, T2: Textable, T3: Textable, T4: Textable, T5: Textable {
         
-        let inputs = [textableValue1, textableValue2, textableValue3, textableValue4, textableValue5]
-        observer = NUIObserver5(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
-            self.isEnabled = isEnabled
-        }
+            let inputs = [textableValue1, textableValue2, textableValue3, textableValue4, textableValue5]
+            observer = NUIObserver5(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
+                self.isEnabled = isEnabled
+            }
     }
 }
 
@@ -183,12 +183,12 @@ extension UIButton {
     /// - parameter textableValue3:         Third textable value for binding.
     /// - parameter textableValue4:         Fourth textable value for binding.
     /// - parameter textableValue5:         Fifth textable value for binding.
-    /// - parameter textableValue5:         Sixth textable value for binding.
+    /// - parameter textableValue6:         Sixth textable value for binding.
     /// - parameter configurationHandler:   Configuration handler within which you should configure `isEnabled` state by current textable values and return it.
     ///
     /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
     ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
-    ///         Dont forget about `dynamic` for your property.
+    ///         Don't forget about `dynamic` for your property.
     ///
     
     public func isEnabled<T1: NSObject, T2: NSObject, T3: NSObject, T4: NSObject, T5: NSObject, T6: NSObject>(by textableValue1: T1,
@@ -200,9 +200,9 @@ extension UIButton {
                                                                                                                 configurationHandler: @escaping ConfigurationHandler6)
         where T1: Textable, T2: Textable, T3: Textable, T4: Textable, T5: Textable, T6: Textable {
         
-        let inputs = [textableValue1, textableValue2, textableValue3, textableValue4, textableValue5, textableValue6]
-        observer = NUIObserver6(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
-            self.isEnabled = isEnabled
-        }
+            let inputs = [textableValue1, textableValue2, textableValue3, textableValue4, textableValue5, textableValue6]
+            observer = NUIObserver6(textableValues: inputs, configurationHandler: configurationHandler) { [unowned self] isEnabled in
+                self.isEnabled = isEnabled
+            }
     }
 }

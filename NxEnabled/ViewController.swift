@@ -15,12 +15,25 @@ class TextField : UITextField {
     }
 }
 
+class Object: NSObject, Textable {
+    dynamic var text: String?
+    
+    var textKey: String {
+        return "text"
+    }
+}
+
+
+
 class ViewController: UIViewController {
 
-    var textField1 = TextField(frame: .zero)
-    var textField2 = TextField(frame: .zero)
-
+    var obj = Object()
+    
+    @IBOutlet weak var textField1: UITextField!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var textField2: UITextField!
+    @IBOutlet weak var textview: UITextView!
+    @IBOutlet weak var textVIew1: UITextView!
     
     deinit {
         button.clearBag()
@@ -29,27 +42,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textField1.backgroundColor = .red
-        textField2.backgroundColor = .red
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.textview.text = "TextView"
+            
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                self.textField1.text = "textField1"
+//            }
+            
+            self.obj.text = "TEXT"
+        }
         
-        view.addSubview(textField1)
-        view.addSubview(textField2)
         
-//        button.isEnabled(by: textField1) { value1 in
-//            return value1.characters.count > 5
-//        }
-
-        button.isEnabled(by: textField1, textField2) { v1, v2 -> Bool in
-            return true
+        button.isEnabled(by: textview, textVIew1) { v1, v2 in
+            print("\(v1) + \(v2)")
+            return v1.characters.count > 3 && v2.characters.count > 3
         }
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        textField1.frame = CGRect(x: 50, y: 200, width: 100, height: 50)
-        textField2.frame = CGRect(x: 50, y: 300, width: 100, height: 50)
-    }
-
 }
 
