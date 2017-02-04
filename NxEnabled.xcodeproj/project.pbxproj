@@ -8,24 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		846931121E45AED800008405 /* NxEnabled.h in Headers */ = {isa = PBXBuildFile; fileRef = 846931111E45AED800008405 /* NxEnabled.h */; };
-		846931151E45B0BE00008405 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 846931141E45B0BE00008405 /* LICENSE */; };
 		846931191E45B0C700008405 /* Button+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931161E45B0C700008405 /* Button+Observer.swift */; };
 		8469311A1E45B0C700008405 /* Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931171E45B0C700008405 /* Observers.swift */; };
 		8469311B1E45B0C700008405 /* TextInput+Textable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931181E45B0C700008405 /* TextInput+Textable.swift */; };
-		8469311E1E45B2FE00008405 /* NxEnabled.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8469311C1E45B2FE00008405 /* NxEnabled.podspec */; };
-		8469311F1E45B2FE00008405 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8469311D1E45B2FE00008405 /* README.md */; };
+		846931231E45B75300008405 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 846931201E45B75300008405 /* LICENSE */; };
+		846931241E45B75300008405 /* NxEnabled.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 846931211E45B75300008405 /* NxEnabled.podspec */; };
+		846931251E45B75300008405 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 846931221E45B75300008405 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		846931021E45AD5F00008405 /* NxEnabled.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NxEnabled.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8469310F1E45ADDD00008405 /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		846931111E45AED800008405 /* NxEnabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NxEnabled.h; sourceTree = "<group>"; };
-		846931141E45B0BE00008405 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		846931161E45B0C700008405 /* Button+Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Button+Observer.swift"; sourceTree = "<group>"; };
 		846931171E45B0C700008405 /* Observers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observers.swift; sourceTree = "<group>"; };
 		846931181E45B0C700008405 /* TextInput+Textable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextInput+Textable.swift"; sourceTree = "<group>"; };
-		8469311C1E45B2FE00008405 /* NxEnabled.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NxEnabled.podspec; sourceTree = "<group>"; };
-		8469311D1E45B2FE00008405 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		846931201E45B75300008405 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		846931211E45B75300008405 /* NxEnabled.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NxEnabled.podspec; sourceTree = "<group>"; };
+		846931221E45B75300008405 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +42,9 @@
 		846930F61E45AD1800008405 = {
 			isa = PBXGroup;
 			children = (
-				846931131E45B0BE00008405 /* Metadata */,
+				846931201E45B75300008405 /* LICENSE */,
+				846931211E45B75300008405 /* NxEnabled.podspec */,
+				846931221E45B75300008405 /* README.md */,
 				8469310E1E45ADDD00008405 /* Sources */,
 				846931031E45AD5F00008405 /* Products */,
 			);
@@ -66,16 +68,6 @@
 				846931181E45B0C700008405 /* TextInput+Textable.swift */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		846931131E45B0BE00008405 /* Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				8469311C1E45B2FE00008405 /* NxEnabled.podspec */,
-				8469311D1E45B2FE00008405 /* README.md */,
-				846931141E45B0BE00008405 /* LICENSE */,
-			);
-			path = Metadata;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,8 +139,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8469311E1E45B2FE00008405 /* NxEnabled.podspec in Resources */,
-				846931151E45B0BE00008405 /* LICENSE in Resources */,
+				846931241E45B75300008405 /* NxEnabled.podspec in Resources */,
+				846931231E45B75300008405 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,7 +153,7 @@
 			files = (
 				8469311B1E45B0C700008405 /* TextInput+Textable.swift in Sources */,
 				846931191E45B0C700008405 /* Button+Observer.swift in Sources */,
-				8469311F1E45B2FE00008405 /* README.md in Sources */,
+				846931251E45B75300008405 /* README.md in Sources */,
 				8469311A1E45B0C700008405 /* Observers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
