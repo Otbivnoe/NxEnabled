@@ -16,7 +16,7 @@ extension UIButton {
     
     fileprivate var observer: NUIObserver? {
         get { return objc_getAssociatedObject(self, &observerTypeAssociationKey) as! NUIObserver? }
-        set { objc_setAssociatedObject(self, &observerTypeAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+        set { objc_setAssociatedObject(self, &observerTypeAssociationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     /// Clears all observers from textable values, wich have been configured by `isEnabled` method.
