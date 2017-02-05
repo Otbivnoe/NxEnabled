@@ -64,4 +64,4 @@ Nikita Ermolenko, gnod94@gmail.com
 
 ## License :exclamation:
 
-Framezilla is available under the MIT license. See the LICENSE file for more info.
+NxEnabled is available under the MIT license. See the LICENSE file for more info.
