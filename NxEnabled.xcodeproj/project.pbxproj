@@ -11,9 +11,6 @@
 		846931191E45B0C700008405 /* Button+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931161E45B0C700008405 /* Button+Observer.swift */; };
 		8469311A1E45B0C700008405 /* Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931171E45B0C700008405 /* Observers.swift */; };
 		8469311B1E45B0C700008405 /* TextInput+Textable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931181E45B0C700008405 /* TextInput+Textable.swift */; };
-		846931231E45B75300008405 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 846931201E45B75300008405 /* LICENSE */; };
-		846931241E45B75300008405 /* NxEnabled.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 846931211E45B75300008405 /* NxEnabled.podspec */; };
-		846931251E45B75300008405 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 846931221E45B75300008405 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,8 +136,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				846931241E45B75300008405 /* NxEnabled.podspec in Resources */,
-				846931231E45B75300008405 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +148,6 @@
 			files = (
 				8469311B1E45B0C700008405 /* TextInput+Textable.swift in Sources */,
 				846931191E45B0C700008405 /* Button+Observer.swift in Sources */,
-				846931251E45B75300008405 /* README.md in Sources */,
 				8469311A1E45B0C700008405 /* Observers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
