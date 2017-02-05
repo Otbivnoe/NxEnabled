@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		846931121E45AED800008405 /* NxEnabled.h in Headers */ = {isa = PBXBuildFile; fileRef = 846931111E45AED800008405 /* NxEnabled.h */; };
+		846931121E45AED800008405 /* NxEnabled.h in Headers */ = {isa = PBXBuildFile; fileRef = 846931111E45AED800008405 /* NxEnabled.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		846931191E45B0C700008405 /* Button+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931161E45B0C700008405 /* Button+Observer.swift */; };
 		8469311A1E45B0C700008405 /* Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931171E45B0C700008405 /* Observers.swift */; };
 		8469311B1E45B0C700008405 /* TextInput+Textable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931181E45B0C700008405 /* TextInput+Textable.swift */; };
