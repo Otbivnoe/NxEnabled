@@ -19,7 +19,7 @@ extension UIButton {
         set { objc_setAssociatedObject(self, &observerTypeAssociationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
-    /// Clears all observers from textable values, wich have been configured by `isEnabled` method.
+    /// Clears all observers from textable values, which have been configured by `isEnabled` method.
     ///
     /// - note: Don't forget to call this method when you need to remove observers from `textableValue`s. Usually it's a `deinit` method.
     ///
