@@ -2,6 +2,11 @@
   <img src="http://i.imgur.com/XZFkFei.png" alt="NxEnabled"/>
 </p>
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](#carthage)
+[![CocoaPods compatible](https://img.shields.io/cocoapods/v/NxEnabled.svg)](#cocoapods) 
+![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg) 
+![platforms](https://img.shields.io/badge/platforms-iOS-lightgrey.svg) 
+
 ## What is NxEnabled?
 
 It's a fairly common case, when the `enabled` state of button depends on some textable elements such as TextView, TextField. So this library allows the simplest way to achive this purpose with only few lines of code.
