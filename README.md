@@ -30,6 +30,26 @@ signUpButton.isEnabled(by: firstnameTextField, lastnameTextField, bioTextView) {
 }
 ```
 
+*So there is also oportunity to add not UI element:*
+
+
+* Implement `Textable` protocol
+  
+* Be a successor from `NSObject`
+  
+* Not forget about `dynamic` label for property
+  
+* Done.
+  
+```swift
+class Object: NSObject, Textable {
+    dynamic var value: String?
+    var textKey: String {
+        return "value"
+    }
+}
+```
+
 ### NOTE:
 **One important case is that you should clear button's bag. It removes all observers from textable elements. Usually it needs to do in `deinit` method.**
 
@@ -38,6 +58,9 @@ deinit {
     signUpButton.clearBag()
 }
 ```
+
+### **Now library allows to add textable elements up to six. :clap:**
+
 
 ## Installation :fire:
 
