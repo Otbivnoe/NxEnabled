@@ -2,6 +2,7 @@
   <img src="http://i.imgur.com/XZFkFei.png" alt="NxEnabled"/>
 </p>
 
+[![Build Status](https://travis-ci.org/Otbivnoe/NxEnabled.svg?branch=master)](https://travis-ci.org/Otbivnoe/NxEnabled)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](#carthage)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/NxEnabled.svg)](#cocoapods) 
 ![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg) 
