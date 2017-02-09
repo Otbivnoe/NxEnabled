@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
 spec.name           = "NxEnabled"
-spec.version        = "1.0.0"
+spec.version        = "1.1.0"
 spec.summary        = "Library which allows you binding `enabled` property of button with textable elements (TextView, TextField)."
 
 spec.homepage       = "https://github.com/Otbivnoe/NxEnabled"
