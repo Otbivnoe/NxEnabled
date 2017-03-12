@@ -11,7 +11,7 @@
 		8422EF2F1E4B692E00B29E9F /* BaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422EF2E1E4B692E00B29E9F /* BaseTests.swift */; };
 		846931121E45AED800008405 /* NxEnabled.h in Headers */ = {isa = PBXBuildFile; fileRef = 846931111E45AED800008405 /* NxEnabled.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		846931191E45B0C700008405 /* Button+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931161E45B0C700008405 /* Button+Observer.swift */; };
-		8469311A1E45B0C700008405 /* Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931171E45B0C700008405 /* Observers.swift */; };
+		8469311A1E45B0C700008405 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931171E45B0C700008405 /* Observer.swift */; };
 		8469311B1E45B0C700008405 /* TextInput+Textable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846931181E45B0C700008405 /* TextInput+Textable.swift */; };
 		848853151E4B00F700AC207E /* JustReturnedEnabledValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848853141E4B00F700AC207E /* JustReturnedEnabledValueTests.swift */; };
 		848853171E4B00F700AC207E /* NxEnabled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846931021E45AD5F00008405 /* NxEnabled.framework */; };
@@ -36,7 +36,7 @@
 		8469310F1E45ADDD00008405 /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		846931111E45AED800008405 /* NxEnabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NxEnabled.h; sourceTree = "<group>"; };
 		846931161E45B0C700008405 /* Button+Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Button+Observer.swift"; sourceTree = "<group>"; };
-		846931171E45B0C700008405 /* Observers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observers.swift; sourceTree = "<group>"; };
+		846931171E45B0C700008405 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		846931181E45B0C700008405 /* TextInput+Textable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextInput+Textable.swift"; sourceTree = "<group>"; };
 		846931201E45B75300008405 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		846931211E45B75300008405 /* NxEnabled.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NxEnabled.podspec; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 				8469310F1E45ADDD00008405 /* Info-iOS.plist */,
 				846931111E45AED800008405 /* NxEnabled.h */,
 				846931161E45B0C700008405 /* Button+Observer.swift */,
-				846931171E45B0C700008405 /* Observers.swift */,
+				846931171E45B0C700008405 /* Observer.swift */,
 				846931181E45B0C700008405 /* TextInput+Textable.swift */,
 			);
 			path = Sources;
@@ -225,7 +225,7 @@
 			files = (
 				8469311B1E45B0C700008405 /* TextInput+Textable.swift in Sources */,
 				846931191E45B0C700008405 /* Button+Observer.swift in Sources */,
-				8469311A1E45B0C700008405 /* Observers.swift in Sources */,
+				8469311A1E45B0C700008405 /* Observer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
