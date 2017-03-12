@@ -17,15 +17,15 @@ It's a fairly common case, when the `enabled` state of button depends on some te
 Typical login screen with short, beautiful validation code:
 
 ```swift
-loginButton.isEnabled(by: usernameTextField, passwordTextField) { username, password in
-    username.characters.count > 5 && password.characters.count > 5
+loginButton.isEnabled(by: usernameTextField, passwordTextField) { texts in
+    texts[0].characters.count > 5 && texts[1].characters.count > 5
 }
 ```
 
 you can also combine together `UITextView` with `UITextField`'s:
 
 ```swift
-signUpButton.isEnabled(by: firstnameTextField, lastnameTextField, bioTextView) { firstname, lastname, bio in
+signUpButton.isEnabled(by: firstnameTextField, lastnameTextField, bioTextView) { texts in
     return /* validation value */
 }
 ```
