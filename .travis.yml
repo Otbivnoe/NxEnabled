@@ -8,6 +8,7 @@ env:
     - DESTINATION="platform=iOS Simulator,name=iPhone 5s"
 
 script:
+    - set -o pipefail
     - xcodebuild test -project "$PROJECT" -scheme "$IOS_FRAMEWORK_SCHEME" -destination "$DESTINATION" | xcpretty -c --test --color
 
 after_success:
