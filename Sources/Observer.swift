@@ -34,12 +34,14 @@ final class NUIObserver: NSObject {
             self.textableValues.addPointer(Unmanaged.passUnretained(value).toOpaque())
         }
 
-        let textableValueTuples = textableValues.map { textableValueTuple(by: $0) }
+        let textableValueTuples = textableValues.map {
+            textableValueTuple(by: $0)
+        }
         textableValueTuples.forEach { (value, key) in
             value.addObserver(self, forKeyPath: key, options: [.new, .initial], context: nil)
 
             switch value {
-            case let value as UIControl:  value.addTarget(self, action:#selector(textableValueChanged), for: .editingChanged)
+            case let value as UIControl:  value.addTarget(self, action: #selector(textableValueChanged), for: .editingChanged)
             case let value as UITextView: NotificationCenter.default.addObserver(self,
                                                                                  selector: #selector(textVewChanged),
                                                                                  name: .UITextViewTextDidChange,
@@ -63,7 +65,7 @@ final class NUIObserver: NSObject {
     
     override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?,
-                               change: [NSKeyValueChangeKey : Any]?,
+                               change: [NSKeyValueChangeKey: Any]?,
                                context: UnsafeMutableRawPointer?) {
         configureEnabling()
     }
@@ -79,7 +81,7 @@ final class NUIObserver: NSObject {
         enabledHandler(configurationHandler(texts))
     }
 
-    private func textableValueTuple(by value: Any) -> (value:NSObject, key:String) {
+    private func textableValueTuple(by value: Any) -> (value: NSObject, key: String) {
         let textableValue = value as! NSObject
         let key = (textableValue as! Textable).textKey
         return (textableValue, key)
