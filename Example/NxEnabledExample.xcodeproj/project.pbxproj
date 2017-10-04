@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		843576501F8339EF003B1F60 /* NxEnabled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843B4C9B1F832B4E000B20EA /* NxEnabled.framework */; };
+		843576511F8339EF003B1F60 /* NxEnabled.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 843B4C9B1F832B4E000B20EA /* NxEnabled.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		843B4C841F832B0A000B20EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B4C831F832B0A000B20EA /* AppDelegate.swift */; };
 		843B4C861F832B0A000B20EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B4C851F832B0A000B20EA /* ViewController.swift */; };
 		843B4C891F832B0A000B20EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843B4C871F832B0A000B20EA /* Main.storyboard */; };
@@ -15,6 +17,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		843576521F8339EF003B1F60 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 843B4C951F832B4E000B20EA /* NxEnabled.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 846931011E45AD5F00008405;
+			remoteInfo = "NxEnabled iOS";
+		};
 		843B4C9A1F832B4E000B20EA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 843B4C951F832B4E000B20EA /* NxEnabled.xcodeproj */;
@@ -30,6 +39,20 @@
 			remoteInfo = NxEnabledTests;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		843576541F8339EF003B1F60 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				843576511F8339EF003B1F60 /* NxEnabled.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		843B4C801F832B0A000B20EA /* NxEnabledExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NxEnabledExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				843576501F8339EF003B1F60 /* NxEnabled.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,10 +126,12 @@
 				843B4C7C1F832B0A000B20EA /* Sources */,
 				843B4C7D1F832B0A000B20EA /* Frameworks */,
 				843B4C7E1F832B0A000B20EA /* Resources */,
+				843576541F8339EF003B1F60 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				843576531F8339EF003B1F60 /* PBXTargetDependency */,
 			);
 			name = NxEnabledExample;
 			productName = NxEnabledExample;
@@ -193,6 +219,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		843576531F8339EF003B1F60 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "NxEnabled iOS";
+			targetProxy = 843576521F8339EF003B1F60 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		843B4C871F832B0A000B20EA /* Main.storyboard */ = {
@@ -324,6 +358,7 @@
 		843B4C931F832B0A000B20EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = NxEnabledExample/Info.plist;
@@ -338,6 +373,7 @@
 		843B4C941F832B0A000B20EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = NxEnabledExample/Info.plist;
