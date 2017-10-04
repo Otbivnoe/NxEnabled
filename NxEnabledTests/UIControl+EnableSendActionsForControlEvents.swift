@@ -12,9 +12,11 @@ private let nx_swizzleToken: Void = {
     let originalSelector = #selector(UIControl.sendAction(_:to:for:))
     let swizzledSelector = #selector(UIControl.nx_sendAction(_:to:forEvent:))
     
-    let originalMethod = class_getInstanceMethod(UIControl.self, originalSelector)
-    let swizzledMethod = class_getInstanceMethod(UIControl.self, swizzledSelector)
-    
+    guard let originalMethod = class_getInstanceMethod(UIControl.self, originalSelector),
+          let swizzledMethod = class_getInstanceMethod(UIControl.self, swizzledSelector) else {
+            return
+    }
+
     let didAddMethod = class_addMethod(UIControl.self,
                                        originalSelector,
                                        method_getImplementation(swizzledMethod),
@@ -39,17 +41,18 @@ private let nx_swizzleToken: Void = {
 /// the pair target+action.
 
 extension UIControl {
-    override open class func initialize() {
-        guard self === UIControl.self else {
-            return
-        }
-        
-        _ = nx_swizzleToken
+    static let shared: UIControl = {
+        $0.initialize()
+        return $0
+    }(UIControl())
+    
+    func initialize() {
+        nx_swizzleToken
     }
     
     // MARK: - Method Swizzling
     
-    func nx_sendAction(_ action: Selector, to target: AnyObject?, forEvent event: UIEvent?) {
+    @objc func nx_sendAction(_ action: Selector, to target: AnyObject?, forEvent event: UIEvent?) {
         _ = target?.perform(action, with: self)
     }
 }

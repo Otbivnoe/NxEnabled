@@ -57,6 +57,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="liu-Jo-jev"/>
+                    <connections>
+                        <outlet property="testButton" destination="soy-k7-5ST" id="21O-6C-GJ9"/>
+                        <outlet property="testTextField" destination="2qK-B2-8VR" id="ndp-gO-GeJ"/>
+                        <outlet property="testTextView" destination="j70-7Y-qE9" id="Q1P-tb-ATI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

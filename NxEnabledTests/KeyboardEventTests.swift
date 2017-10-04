@@ -16,7 +16,8 @@ final class KeyboardEventTests: BaseTests {
     
     override func setUp() {
         super.setUp()
-
+        _  = UIControl.shared
+        
         triggeredEventCount = 0
         needHandle = false
     }

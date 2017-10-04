@@ -8,7 +8,7 @@
 
 import UIKit.UIButton
 
-private var observerTypeAssociationKey: UInt8 = 0
+public typealias TextableValue = NSObject & Textable
 
 public typealias ConfigurationHandler1 = (String) -> Bool
 public typealias ConfigurationHandler2 = (String, String) -> Bool
@@ -17,11 +17,13 @@ public typealias ConfigurationHandler4 = (String, String, String, String) -> Boo
 public typealias ConfigurationHandler5 = (String, String, String, String, String) -> Bool
 public typealias ConfigurationHandler6 = (String, String, String, String, String, String) -> Bool
 
+private var observerTypeAssociationKey: UInt8 = 0
+
 extension UIButton {
     
-    /// Special object which observes text for all textable values
+    /// Special object which observes text for all textable values.
     
-    fileprivate var observer: NUIObserver? {
+    private var observer: NUIObserver? {
         get { return objc_getAssociatedObject(self, &observerTypeAssociationKey) as? NUIObserver }
         set { objc_setAssociatedObject(self, &observerTypeAssociationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
@@ -52,18 +54,17 @@ extension UIButton {
     /// - parameter configurationHandler:   Configuration handler within which you should configure `isEnabled` state by current textable value and return it.
     ///
     /// - note: You can pass not only UI elements such as `UITextView` and `UITextField`, for example.
-    ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`. 
+    ///         But also any object which conforms to `Textable` protocol and is the successor of `NSObject`.
     ///         Don't forget about `dynamic` for your property.
     ///
     
-    public func isEnabled<T: NSObject>(by textableValue: T,
-                                        configurationHandler: @escaping ConfigurationHandler1)
-        where T: Textable {
-
-            let inputs = [textableValue]
-            observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
-                configurationHandler(texts[0])
-            }, enabledHandler: enabledHandler)
+    public func isEnabled(by textableValue: TextableValue,
+                          configurationHandler: @escaping ConfigurationHandler1) {
+        
+        let inputs = [textableValue]
+        observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
+            configurationHandler(texts[0])
+        }, enabledHandler: enabledHandler)
     }
 }
 
@@ -82,15 +83,14 @@ extension UIButton {
     ///         Don't forget about `dynamic` for your property.
     ///
     
-    public func isEnabled<T1: NSObject, T2: NSObject>(by textableValue1: T1,
-                                                      _ textableValue2: T2,
-                                                      configurationHandler: @escaping ConfigurationHandler2)
-        where T1: Textable, T2: Textable {
-            
-            let inputs = [textableValue1, textableValue2]
-            observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
-                configurationHandler(texts[0], texts[1])
-            }, enabledHandler: enabledHandler)
+    public func isEnabled(by textableValue1: TextableValue,
+                          _ textableValue2: TextableValue,
+                          configurationHandler: @escaping ConfigurationHandler2) {
+        
+        let inputs = [textableValue1, textableValue2]
+        observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
+            configurationHandler(texts[0], texts[1])
+        }, enabledHandler: enabledHandler)
     }
 }
 
@@ -110,16 +110,15 @@ extension UIButton {
     ///         Don't forget about `dynamic` for your property.
     ///
     
-    public func isEnabled<T1: NSObject, T2: NSObject, T3: NSObject>(by textableValue1: T1,
-                                                                    _ textableValue2: T2,
-                                                                    _ textableValue3: T3,
-                                                                    configurationHandler: @escaping ConfigurationHandler3)
-        where T1: Textable, T2: Textable, T3: Textable {
-
-            let inputs = [textableValue1, textableValue2, textableValue3]
-            observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
-                configurationHandler(texts[0], texts[1], texts[2])
-            }, enabledHandler: enabledHandler)
+    public func isEnabled(by textableValue1: TextableValue,
+                          _ textableValue2: TextableValue,
+                          _ textableValue3: TextableValue,
+                          configurationHandler: @escaping ConfigurationHandler3) {
+        
+        let inputs = [textableValue1, textableValue2, textableValue3]
+        observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
+            configurationHandler(texts[0], texts[1], texts[2])
+        }, enabledHandler: enabledHandler)
     }
 }
 
@@ -140,17 +139,16 @@ extension UIButton {
     ///         Don't forget about `dynamic` for your property.
     ///
     
-    public func isEnabled<T1: NSObject, T2: NSObject, T3: NSObject, T4: NSObject>(by textableValue1: T1,
-                                                                                    _ textableValue2: T2,
-                                                                                    _ textableValue3: T3,
-                                                                                    _ textableValue4: T4,
-                                                                                    configurationHandler: @escaping ConfigurationHandler4)
-        where T1: Textable, T2: Textable, T3: Textable, T4: Textable {
-
-            let inputs = [textableValue1, textableValue2, textableValue3, textableValue4]
-            observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
-                configurationHandler(texts[0], texts[1], texts[2], texts[3])
-            }, enabledHandler: enabledHandler)
+    public func isEnabled(by textableValue1: TextableValue,
+                          _ textableValue2: TextableValue,
+                          _ textableValue3: TextableValue,
+                          _ textableValue4: TextableValue,
+                          configurationHandler: @escaping ConfigurationHandler4) {
+        
+        let inputs = [textableValue1, textableValue2, textableValue3, textableValue4]
+        observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
+            configurationHandler(texts[0], texts[1], texts[2], texts[3])
+        }, enabledHandler: enabledHandler)
     }
 }
 
@@ -172,18 +170,17 @@ extension UIButton {
     ///         Don't forget about `dynamic` for your property.
     ///
     
-    public func isEnabled<T1: NSObject, T2: NSObject, T3: NSObject, T4: NSObject, T5: NSObject>(by textableValue1: T1,
-                                                                                                _ textableValue2: T2,
-                                                                                                _ textableValue3: T3,
-                                                                                                _ textableValue4: T4,
-                                                                                                _ textableValue5: T5,
-                                                                                                configurationHandler: @escaping ConfigurationHandler5)
-        where T1: Textable, T2: Textable, T3: Textable, T4: Textable, T5: Textable {
-
-            let inputs = [textableValue1, textableValue2, textableValue3, textableValue4, textableValue5]
-            observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
-                configurationHandler(texts[0], texts[1], texts[2], texts[3], texts[4])
-            }, enabledHandler: enabledHandler)
+    public func isEnabled(by textableValue1: TextableValue,
+                          _ textableValue2: TextableValue,
+                          _ textableValue3: TextableValue,
+                          _ textableValue4: TextableValue,
+                          _ textableValue5: TextableValue,
+                          configurationHandler: @escaping ConfigurationHandler5) {
+        
+        let inputs = [textableValue1, textableValue2, textableValue3, textableValue4, textableValue5]
+        observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
+            configurationHandler(texts[0], texts[1], texts[2], texts[3], texts[4])
+        }, enabledHandler: enabledHandler)
     }
 }
 
@@ -206,18 +203,17 @@ extension UIButton {
     ///         Don't forget about `dynamic` for your property.
     ///
     
-    public func isEnabled<T1: NSObject, T2: NSObject, T3: NSObject, T4: NSObject, T5: NSObject, T6: NSObject>(by textableValue1: T1,
-                                                                                                                _ textableValue2: T2,
-                                                                                                                _ textableValue3: T3,
-                                                                                                                _ textableValue4: T4,
-                                                                                                                _ textableValue5: T5,
-                                                                                                                _ textableValue6: T6,
-                                                                                                                configurationHandler: @escaping ConfigurationHandler6)
-        where T1: Textable, T2: Textable, T3: Textable, T4: Textable, T5: Textable, T6: Textable {
-
-            let inputs = [textableValue1, textableValue2, textableValue3, textableValue4, textableValue5, textableValue6]
-            observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
-                configurationHandler(texts[0], texts[1], texts[2], texts[3], texts[4], texts[5])
-            }, enabledHandler: enabledHandler)
+    public func isEnabled(by textableValue1: TextableValue,
+                          _ textableValue2: TextableValue,
+                          _ textableValue3: TextableValue,
+                          _ textableValue4: TextableValue,
+                          _ textableValue5: TextableValue,
+                          _ textableValue6: TextableValue,
+                          configurationHandler: @escaping ConfigurationHandler6) {
+        
+        let inputs = [textableValue1, textableValue2, textableValue3, textableValue4, textableValue5, textableValue6]
+        observer = NUIObserver(textableValues: inputs, configurationHandler: { texts in
+            configurationHandler(texts[0], texts[1], texts[2], texts[3], texts[4], texts[5])
+        }, enabledHandler: enabledHandler)
     }
 }
