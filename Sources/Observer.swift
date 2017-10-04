@@ -11,36 +11,35 @@ import UIKit.UIControl
 typealias EnabledHandler = (Bool) -> Void
 typealias ConfigurationHandler = ([String]) -> Bool
 
+final class WeakWrapper {
+    weak var value: TextableValue?
+    init(value: TextableValue) {
+        self.value = value
+    }
+}
+
 final class NUIObserver: NSObject {
     
     private var enabledHandler: EnabledHandler
-    private var textableValues: NSPointerArray /// Weak array of textable values.
+    private var textableValues: [WeakWrapper]
     private var configurationHandler: ConfigurationHandler
 
-    deinit {
-        textableValues.allObjects.map { textableValueTuple(by: $0) }.forEach { (value, key) in
-            value.removeObserver(self, forKeyPath: key)
-        }
-    }
+    // https://bugs.swift.org/browse/SR-3849
     
-    init(textableValues: [NSObject], configurationHandler: @escaping ConfigurationHandler, enabledHandler: @escaping EnabledHandler) {
+    init(textableValues: [TextableValue], configurationHandler: @escaping ConfigurationHandler, enabledHandler: @escaping EnabledHandler) {
         self.configurationHandler = configurationHandler
         self.enabledHandler = enabledHandler
-        self.textableValues = NSPointerArray(options: .weakMemory)
         
+        self.textableValues = textableValues.map { textableValue in
+            return WeakWrapper(value: textableValue)
+        }
+
         super.init()
         
-        textableValues.forEach { value in
-            self.textableValues.addPointer(Unmanaged.passUnretained(value).toOpaque())
-        }
-
-        let textableValueTuples = textableValues.map {
-            textableValueTuple(by: $0)
-        }
-        textableValueTuples.forEach { (value, key) in
-            value.addObserver(self, forKeyPath: key, options: [.new, .initial], context: nil)
-
-            switch value {
+        textableValues.forEach { textableValue in
+            textableValue.addObserver(self, forKeyPath: textableValue.textKey, options: [.new, .initial], context: nil)
+            
+            switch textableValue {
             case let value as UIControl:  value.addTarget(self, action: #selector(textableValueChanged), for: .editingChanged)
             case let value as UITextView: NotificationCenter.default.addObserver(self,
                                                                                  selector: #selector(textVewChanged),
@@ -71,19 +70,14 @@ final class NUIObserver: NSObject {
     }
     
     // MARK: Helpers
-
+    
     private func configureEnabling() {
-        let texts = textableValues.allObjects.map { textableValue -> String in
-            let object = textableValue as! NSObject
-            let key = (object as! Textable).textKey
-            return object.value(forKey: key) as? String ?? ""
+        let texts = textableValues.flatMap { textableValue -> String? in
+            guard let value = textableValue.value else {
+                return nil
+            }
+            return value.value(forKey: value.textKey) as? String
         }
         enabledHandler(configurationHandler(texts))
-    }
-
-    private func textableValueTuple(by value: Any) -> (value: NSObject, key: String) {
-        let textableValue = value as! NSObject
-        let key = (textableValue as! Textable).textKey
-        return (textableValue, key)
     }
 }

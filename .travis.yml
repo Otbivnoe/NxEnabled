@@ -1,11 +1,11 @@
 language: objective-c
-osx_image: xcode8
+osx_image: xcode9
 env:
     global:
     - PROJECT=NxEnabled.xcodeproj
     - IOS_FRAMEWORK_SCHEME="NxEnabled iOS"
     matrix:
-    - DESTINATION="platform=iOS Simulator,name=iPhone 5s"
+    - DESTINATION="platform=iOS Simulator,OS=11.0,name=iPhone 6"
 
 script:
     - set -o pipefail

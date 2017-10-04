@@ -7,16 +7,23 @@
 //
 
 import UIKit
+import NxEnabled
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var testTextField: UITextField!
+    @IBOutlet weak var testTextView: UITextView!    
+    @IBOutlet weak var testButton: UIButton!
+
+    deinit {
+        testButton.clearBag()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        testButton.isEnabled(by: testTextField, testTextView) { (value1, value2) -> Bool in
+            return value1.count > 5 && value2.count > 5
+        }
     }
 }
